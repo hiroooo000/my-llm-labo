@@ -4,7 +4,7 @@ CONTAINER_NAME="dgx-spark-dev"
 
 # Check if container is running
 if [ ! "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then
-    echo "Container ${CONTAINER_NAME} is not running. Please run ./run_container.sh first."
+    echo "Container ${CONTAINER_NAME} is not running. Please run ./start_container.sh first."
     exit 1
 fi
 
