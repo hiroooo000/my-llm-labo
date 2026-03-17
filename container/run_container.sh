@@ -12,26 +12,23 @@ echo "Starting NVIDIA DGX Spark Dev Container..."
 echo "Building Docker image ${IMAGE_NAME}..."
 docker build -t ${IMAGE_NAME} "${SCRIPT_DIR}"
 
-# Check if container is already running
-if [ "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then
-    echo "Container ${CONTAINER_NAME} is already running."
-    exit 0
-fi
-
-# Check if container exists but is stopped
-if [ "$(docker ps -aq -f status=exited -f name=${CONTAINER_NAME})" ]; then
-    echo "Restarting existing container ${CONTAINER_NAME}..."
-    docker start ${CONTAINER_NAME}
-    exit 0
+# Remove existing container if it exists to apply changes
+if [ "$(docker ps -aq -f name=${CONTAINER_NAME})" ]; then
+    echo "Removing existing container ${CONTAINER_NAME} to apply new changes..."
+    docker rm -f ${CONTAINER_NAME}
 fi
 
 # Run new container
+# Ensure HF cache directory exists on host
+mkdir -p ${HOME}/.cache/huggingface
+
 docker run -d \
     --name ${CONTAINER_NAME} \
     --gpus all \
     --shm-size 64gb \
     -p 8888:8888 \
     -v ${WORKSPACE_DIR}:/workspace \
+    -v ${HOME}/.cache/huggingface:/root/.cache/huggingface \
     -w /workspace \
     ${IMAGE_NAME} \
     sleep infinity

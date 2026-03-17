@@ -23,5 +23,7 @@ RUN pip install --no-cache-dir \
     jupyter \
     huggingface_hub
 
+RUN mkdir -p /root/.cache/huggingface
+
 # Set the working directory
 WORKDIR /workspace

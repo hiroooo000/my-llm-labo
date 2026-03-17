@@ -16,4 +16,5 @@ venv/
 
 # Others
 *.pdf
-.DS_Store.cache/
+.DS_Store
+.cache/
