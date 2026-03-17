@@ -1,6 +1,7 @@
 #!/bin/bash
 
-CONTAINER_NAME="dgx-spark-dev"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "${SCRIPT_DIR}/config.sh"
 
 # Check if container is running
 if [ ! "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then

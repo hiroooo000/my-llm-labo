@@ -1,10 +1,8 @@
 #!/bin/bash
 
 # Configuration
-CONTAINER_NAME="dgx-spark-dev"
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-IMAGE_NAME="dgx-spark-custom"
-WORKSPACE_DIR=$(cd "${SCRIPT_DIR}/.." && pwd)
+source "${SCRIPT_DIR}/config.sh"
 
 echo "Starting NVIDIA DGX Spark Dev Container..."
 

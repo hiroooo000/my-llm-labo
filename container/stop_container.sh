@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Configuration
-CONTAINER_NAME="dgx-spark-dev"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "${SCRIPT_DIR}/config.sh"
 
 echo "Stopping container ${CONTAINER_NAME}..."
 
