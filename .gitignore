@@ -18,3 +18,10 @@ venv/
 *.pdf
 .DS_Store
 .cache/
+*.png
+*.jpg
+*.jpeg
+
+01_training/01_data_prep/extracted_texts/*
+01_training/01_data_prep/extract_data/*
+01_training/01_data_prep/row_data/*

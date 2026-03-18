@@ -23,6 +23,9 @@ mkdir -p ${HOME}/.cache/huggingface
 docker run -d \
     --name ${CONTAINER_NAME} \
     --gpus all \
+    --ipc=host \
+    --ulimit memlock=-1 \
+    --ulimit stack=67108864 \
     --shm-size 64gb \
     -p 8888:8888 \
     -v ${WORKSPACE_DIR}:/workspace \
