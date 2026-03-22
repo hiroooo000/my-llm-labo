@@ -27,7 +27,8 @@ docker run -d \
     --ulimit memlock=-1 \
     --ulimit stack=67108864 \
     --shm-size 64gb \
-    -p 8888:8888 \
+    --network host \
+    --add-host=host.docker.internal:host-gateway \
     -v ${WORKSPACE_DIR}:/workspace \
     -v ${HOME}/.cache/huggingface:/root/.cache/huggingface \
     -w /workspace \

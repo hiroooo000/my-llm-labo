@@ -26,3 +26,13 @@ venv/
 01_training/01_data_prep/extract_data/*
 01_training/01_data_prep/row_data/*
 01_training/01_data_prep/extracted_texts_python/*
+01_training/01_data_prep/extract_tests_qwen3_5/*
+01_training/01_data_prep/cpt_natural_texts/*
+
+01_training/02_SFT/_unsloth_temporary_saved_buffers
+01_training/02_SFT/unsloth_compiled_cache
+01_training/02_SFT/outputs*
+
+container_unslosh/_unsloth_temporary_saved_buffers
+container_unslosh/unsloth_compiled_cache
+
