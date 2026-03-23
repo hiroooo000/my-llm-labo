@@ -32,6 +32,7 @@ venv/
 01_training/02_SFT/_unsloth_temporary_saved_buffers
 01_training/02_SFT/unsloth_compiled_cache
 01_training/02_SFT/outputs*
+01_training/02_SFT/gpt_oss*
 
 container_unslosh/_unsloth_temporary_saved_buffers
 container_unslosh/unsloth_compiled_cache
