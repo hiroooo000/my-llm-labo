@@ -36,6 +36,7 @@ mkdir -p ${HOME}/.cache/huggingface
 #    sleep infinity
 
 docker run -it \
+    --name ${CONTAINER_NAME} \
     --gpus=all \
     --net=host \
     --ipc=host \

@@ -33,7 +33,8 @@ venv/
 01_training/02_SFT/unsloth_compiled_cache
 01_training/02_SFT/outputs*
 01_training/02_SFT/gpt_oss*
-
-container_unslosh/_unsloth_temporary_saved_buffers
-container_unslosh/unsloth_compiled_cache
+01_training/02_SFT/kakidash_ultimate_expert
+01_training/02_SFT/llama3*
+container_unsloth/_unsloth_temporary_saved_buffers
+container_unsloth/unsloth_compiled_cache
 
