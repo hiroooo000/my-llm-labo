@@ -38,3 +38,5 @@ venv/
 container_unsloth/_unsloth_temporary_saved_buffers
 container_unsloth/unsloth_compiled_cache
 container_nemo_automodel/Automodel
+
+checkpoints/*

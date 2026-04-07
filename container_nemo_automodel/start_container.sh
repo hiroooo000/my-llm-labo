@@ -28,6 +28,7 @@ mkdir -p ${HOME}/.cache/huggingface
 # Run container in background (-d)
 docker run -d \
     --name ${CONTAINER_NAME} \
+    --env-file "${SCRIPT_DIR}/.env" \
     --gpus all \
     --ipc=host \
     --ulimit memlock=-1 \
