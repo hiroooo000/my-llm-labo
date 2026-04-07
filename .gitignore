@@ -37,4 +37,6 @@ venv/
 01_training/02_SFT/llama3*
 container_unsloth/_unsloth_temporary_saved_buffers
 container_unsloth/unsloth_compiled_cache
+container_nemo_automodel/Automodel
 
+checkpoints/*
