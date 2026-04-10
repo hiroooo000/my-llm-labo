@@ -19,6 +19,7 @@ fi
 # Run new container
 # Ensure HF cache directory exists on host
 mkdir -p ${HOME}/.cache/huggingface
+mkdir -p ${HOME}/.unsloth/studio
 
 #docker run -d \
 #    --name ${CONTAINER_NAME} \
@@ -44,6 +45,7 @@ docker run -d \
     --ulimit stack=67108864 \
     -v $(pwd):$(pwd) \
     -v $HOME/.cache/huggingface:/root/.cache/huggingface \
+    -v $HOME/.unsloth/studio:/root/.unsloth/studio \
     -w $(pwd) \
     ${IMAGE_NAME}
 
