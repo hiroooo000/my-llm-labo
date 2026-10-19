@@ -12,8 +12,9 @@ NVIDIA DGX Spark（Grace Blackwell GB10 / aarch64）環境向けの **Unsloth St
 | :--- | :--- |
 | `Dockerfile` | 最新の Unsloth Studio 環境を構築する Dockerfile |
 | `config.sh` | コンテナ名・イメージ名などの共通環境変数定義 |
-| `start_container.sh` | イメージのビルドおよびコンテナの起動スクリプト |
+| `start_container.sh` | イメージのビルドおよびコンテナの起動スクリプト（`--rebuild` 対応） |
 | `stop_container.sh` | 起動中コンテナの停止スクリプト |
+| `update_container.sh` | Unsloth / Unsloth Studio を安全に最新化するアップデートスクリプト |
 | `connect_container.sh` | 稼働中コンテナの bash シェルへ接続するスクリプト |
 | `readme.md` | 本説明ドキュメント |
 
@@ -80,6 +81,43 @@ docker logs -f unsloth-studio-dgx-spark
 ./stop_container.sh
 ```
 
+### 6. Unsloth Studio のアップデート
+
+本環境では、**コンテナ起動時に毎回自動で Unsloth および Audio runtime の最新バージョンをチェック・更新して起動**するよう構成されています。
+
+#### ① 通常起動時の自動アップデート（デフォルト動作）
+通常どおり以下の起動スクリプトを実行するだけで、コンテナ起動時に自動で最新パッケージが取得・適用されて起動します。
+
+```bash
+./start_container.sh
+```
+
+- 起動時に `pip install --no-cache-dir -U --no-deps unsloth unsloth_zoo` および `audio.cpp` の更新が自動実行されます。
+- 万が一ネットワークが不安定な場合でも、エラーで起動が停止しないようフォールバック設計になっています。
+
+#### ② 稼働中のコンテナを即座に最新化する場合
+コンテナを停止・再作成せず、稼働したままバックグラウンドで最新化したい場合は、アップデートスクリプトを実行します（所要時間: 数十秒）：
+
+```bash
+./update_container.sh
+```
+
+- **GitHub main ブランチの最新開発版へ更新する場合**:
+  ```bash
+  ./update_container.sh --git
+  ```
+- **特定バージョンを指定する場合**:
+  ```bash
+  ./update_container.sh --version 2026.10.7
+  ```
+
+> **重要 (Blackwell 依存関係の保護)**: すべての更新処理は内部で `--no-deps` を付与して行われるため、DGX Spark 向けに事前ビルドされた NGC PyTorch 25.11 や Blackwell 最適化版 Triton / xformers が PyPI の汎用 wheel で上書き破壊されることはありません。
+
+#### ③ Docker イメージをゼロから完全再構築する場合
+```bash
+./start_container.sh --rebuild
+```
+
 ---
 
 ## データ永続化とボリュームマウント
@@ -89,8 +127,9 @@ docker logs -f unsloth-studio-dgx-spark
 - **作業ディレクトリ**: `$(pwd):$(pwd)`（実行時のカレントディレクトリ）
 - **Hugging Face キャッシュ**: `$HOME/.cache/huggingface` -> `/root/.cache/huggingface`
 - **Studio ワークスペース・設定**: `$HOME/.unsloth/studio` -> `/root/.unsloth/studio`
+- **Audio ランタイム & モデル**: `$HOME/.unsloth/audio.cpp` -> `/root/.unsloth/audio.cpp`
 
-> **Note**: ホスト側の `$HOME/.unsloth/studio` が空の状態でマウントされた場合でも、コンテナ起動時のエントリーポイントスクリプト（`entrypoint.sh`）により、イメージ内から必要なシステム設定ファイルが自動復元されます。
+> **Note**: ホスト側の `$HOME/.unsloth/studio` が空の状態でマウントされた場合でも、コンテナ起動時のエントリーポイントスクリプト（`entrypoint.sh`）により、イメージ内から必要なシステム設定ファイルが自動復元されます。また、Audio ランタイム（audio.cpp）もホスト側に永続化されます。
 
 ---
 
